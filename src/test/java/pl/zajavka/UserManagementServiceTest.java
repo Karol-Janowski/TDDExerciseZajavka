@@ -49,8 +49,10 @@ public class UserManagementServiceTest {
         Assertions.assertEquals(3, all.size());
         Assertions.assertTrue(result1.isPresent());
         Assertions.assertEquals(user1, result1.get());
-
-
+        Assertions.assertTrue(result2.isPresent());
+        Assertions.assertEquals(user2, result2.get());
+        Assertions.assertTrue(result3.isPresent());
+        Assertions.assertEquals(user3, result3.get());
 
     }
 }
