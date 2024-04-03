@@ -41,6 +41,16 @@ public class UserManagementServiceTest {
         userManagementService.create(user3);
 
         var result1 = userManagementService.findByEmail(user1.getEmail());
+        var result2 = userManagementService.findByEmail(user2.getEmail());
+        var result3 = userManagementService.findByEmail(user3.getEmail());
+        var all = userManagementService.findAll();
+
+        //then
+        Assertions.assertEquals(3, all.size());
+        Assertions.assertTrue(result1.isPresent());
+        Assertions.assertEquals(user1, result1.get());
+
+
 
     }
 }
