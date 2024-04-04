@@ -132,6 +132,19 @@ public class UserManagementServiceTest {
 
     }
 
+    @Test
+    void shouldThrowWhenModifyingNonExistingUser() {
+        //given
+        var user1 = someUser();
+        String newEmail = "email1@gmail.com";
+
+        //when, then
+        Throwable exception = Assertions.assertThrows(RuntimeException.class,
+                () -> userManagementService.update(user1.getEmail(), user1.withEmail(newEmail)));
+        Assertions.assertEquals(String.format("User with email: [%s] doesnt exist", user1.getEmail()), exception.getMessage());
+
+    }
+
 
 
 
