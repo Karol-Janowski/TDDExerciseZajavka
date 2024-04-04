@@ -25,7 +25,7 @@ public class UserManagementServiceTest {
         //when
         userManagementService.create(user);
 
-        var result = userManagementService.findByMail(user.getMail());
+        var result = userManagementService.findByEmail(user.getEmail());
 
         //then
         Assertions.assertTrue(result.isPresent());
