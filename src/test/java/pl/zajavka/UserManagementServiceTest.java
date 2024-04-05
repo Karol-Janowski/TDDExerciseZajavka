@@ -95,6 +95,10 @@ public class UserManagementServiceTest {
         Assertions.assertEquals(3, all.size());
         Assertions.assertEquals(
                 Stream.of(user1, user2).sorted().collect(Collectors.toList()),
+                result1.stream().sorted().collect(Collectors.toList())
+        );
+        Assertions.assertEquals(
+                Stream.of(user1, user2).sorted().collect(Collectors.toList()),
                 result2.stream().sorted().collect(Collectors.toList())
         );
         Assertions.assertEquals(List.of(user3), result3);
@@ -118,16 +122,16 @@ public class UserManagementServiceTest {
 
         var result1 = userManagementService.findByEmail(user1.getEmail());
         userManagementService.update(user1.getEmail(), user1.withEmail(newEmail));
-        var result2 = userManagementService.findByEmail(user1.getEmail(newEmail));
+        var result2 = userManagementService.findByEmail(user1.getEmail());
         var result3 = userManagementService.findByEmail(newEmail);
         var allAgain = userManagementService.findAll();
 
         //then
         Assertions.assertEquals(3, allAgain.size());
-        Assertions.assertTrue(result.isPresent());
+        Assertions.assertTrue(result1.isPresent());
         Assertions.assertEquals(user1, result1.get());
         Assertions.assertTrue(result2.isEmpty());
-        Assertions.assertTrue(result2.isPresent());
+        Assertions.assertTrue(result3.isPresent());
         Assertions.assertEquals(user1.withEmail(newEmail), result3.get());
 
     }
@@ -170,7 +174,7 @@ public class UserManagementServiceTest {
         //then
         Assertions.assertEquals(2, allAgain.size());
         Assertions.assertTrue(result1.isEmpty());
-        Assertions.assertTrue(result2,isPresent());
+        Assertions.assertTrue(result2.isPresent());
         Assertions.assertEquals(user2, result2.get());
         Assertions.assertTrue(result3.isPresent());
         Assertions.assertEquals(user3, result3.get());

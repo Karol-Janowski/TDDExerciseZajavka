@@ -7,8 +7,15 @@ import lombok.With;
 @Data
 @With
 @Builder
-public class User {
+public class User implements Comparable<User>{
     private String name;
     private String surname;
     private String email;
+
+    @Override
+    public int compareTo(User o) {
+        int result = (this.email.compareTo(o.email));
+
+        return -1 * result;
+    }
 }
