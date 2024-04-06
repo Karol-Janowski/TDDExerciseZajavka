@@ -3,8 +3,10 @@ package pl.zajavka;
 import lombok.Getter;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class UserManagementService {
 
@@ -25,25 +27,29 @@ public class UserManagementService {
                 .findFirst();
     }
 
-    public Optional<User> findByName(String name) {
-        return dataBase.entrySet().stream()
-                .filter(entry -> entry.getValue().getName().equals(name))
-                .map(entry -> entry.getValue())
-                .findFirst();
+    public List<User> findByName(String name) {
+        return dataBase.values().stream()
+                .filter(user -> user.getName().equals(name))
+                .collect(Collectors.toList());
     }
 
     public Map<String, User> findAll() {
         return dataBase;
     }
 
-    public void update(String oldMail, User newMail) {
-        if (dataBase.containsKey(oldMail)) {
-            dataBase.replace(oldMail, dataBase.get(oldMail), newMail);
-
-        } else {
-            throw new RuntimeException(String.format("User with email: [%s] doesnt exist", oldMail));
+    public void update(String oldMail, User userUpdate) {
+        if (!dataBase.containsKey(oldMail)) {
+            throw new RuntimeException(
+                    String.format("User with email: [%s] doesnt exist", oldMail)
+            );
         }
+        if (!oldMail.equals(userUpdate.getEmail())) {
+            dataBase.remove(oldMail);
+        }
+        dataBase.put(userUpdate.getEmail(), userUpdate);
     }
+
+
 
 
     public void delete(String email) {

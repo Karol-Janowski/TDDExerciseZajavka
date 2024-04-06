@@ -1,10 +1,10 @@
 package pl.zajavka;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Value;
 import lombok.With;
 
-@Data
+@Value
 @With
 @Builder
 public class User implements Comparable<User>{
@@ -16,6 +16,6 @@ public class User implements Comparable<User>{
     public int compareTo(User o) {
         int result = (this.email.compareTo(o.email));
 
-        return -1 * result;
+        return result;
     }
 }
